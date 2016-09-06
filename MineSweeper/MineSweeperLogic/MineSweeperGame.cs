@@ -9,9 +9,21 @@ namespace MineSweeperLogic
 {
     public class MineSweeperGame
     {
+        public int posX;
+        public int posY;
+        public int sizeX;
+        public int sizeY;
+        public int numberOfMines;
+        public GameState state;
 
         public MineSweeperGame(int sizeX, int sizeY, int nrOfMines, IServiceBus bus)
         {
+            PosX = posX;
+            PosY = posY;
+            SizeX = sizeX;
+            SizeY = sizeY;
+            NumberOfMines = numberOfMines;
+            State = state;
         }
 
         public int PosX { get; private set; }
@@ -28,36 +40,44 @@ namespace MineSweeperLogic
 
         public void FlagCoordinate()
         {
+
         }
 
         public void ClickCoordinate()
         {
+
         }
 
         public void ResetBoard()
         {
+
         }
 
         public void DrawBoard()
         {
+
         }
 
         #region MoveCursor Methods
 
         public void MoveCursorUp()
         {
+            PosY -= 1;
         }
 
         public void MoveCursorDown()
         {
+            PosY += 1;
         }
 
         public void MoveCursorLeft()
         {
+            PosX -= 1;
         }
 
         public void MoveCursorRight()
         {
+            PosX += 1;
         }
 
         #endregion
