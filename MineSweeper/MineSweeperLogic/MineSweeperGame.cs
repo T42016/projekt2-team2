@@ -9,12 +9,12 @@ namespace MineSweeperLogic
 {
     public class MineSweeperGame
     {
-        public int posX;
-        public int posY;
-        public int sizeX;
-        public int sizeY;
-        public int numberOfMines;
-        public GameState state;
+        private int posX;
+        private int posY;
+        private int sizeX;
+        private int sizeY;
+        private int numberOfMines;
+        private GameState state;
 
         public MineSweeperGame(int sizeX, int sizeY, int nrOfMines, IServiceBus bus)
         {
@@ -62,22 +62,34 @@ namespace MineSweeperLogic
 
         public void MoveCursorUp()
         {
-            PosY -= 1;
+            if (PosY > 0)
+            {
+                PosY -= 1;
+            }
         }
 
         public void MoveCursorDown()
         {
-            PosY += 1;
+            if (PosY < SizeY)
+            {
+                PosY += 1;
+            }
         }
 
         public void MoveCursorLeft()
         {
-            PosX -= 1;
+            if (PosX > 0)
+            {
+                PosX -= 1;
+            }
         }
 
         public void MoveCursorRight()
         {
-            PosX += 1;
+            if (PosX < SizeX)
+            {
+                PosX += 1;
+            }
         }
 
         #endregion
