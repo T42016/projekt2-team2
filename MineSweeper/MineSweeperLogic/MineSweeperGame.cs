@@ -45,7 +45,7 @@ namespace MineSweeperLogic
 
         public PositionInfo GetCoordinate(int x, int y)
         {
-            return null;
+            return positions[x,y];
         }
 
         public void FlagCoordinate()
@@ -60,7 +60,7 @@ namespace MineSweeperLogic
 
         public void ResetBoard()
         {
-           
+
 
             for (int y = 0; y < SizeY; y++)
             {
@@ -90,8 +90,6 @@ namespace MineSweeperLogic
                     i--;
                 }
             }
-
-
         }
 
         public void DrawBoard()
