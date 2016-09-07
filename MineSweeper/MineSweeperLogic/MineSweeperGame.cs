@@ -16,7 +16,7 @@ namespace MineSweeperLogic
         private int numberOfMines;
         private GameState state;
 
-        public MineSweeperGame(int sizeX, int sizeY, int nrOfMines, IServiceBus bus)
+        public MineSweeperGame(int sizeX, int sizeY, int numberOfMines, IServiceBus bus)
         {
             PosX = posX;
             PosY = posY;
@@ -24,6 +24,8 @@ namespace MineSweeperLogic
             SizeY = sizeY;
             NumberOfMines = numberOfMines;
             State = state;
+
+            ResetBoard();
         }
 
         public int PosX { get; private set; }
@@ -70,7 +72,7 @@ namespace MineSweeperLogic
 
         public void MoveCursorDown()
         {
-            if (PosY < SizeY)
+            if (PosY < SizeY - 1)
             {
                 PosY += 1;
             }
@@ -86,7 +88,7 @@ namespace MineSweeperLogic
 
         public void MoveCursorRight()
         {
-            if (PosX < SizeX)
+            if (PosX < SizeX - 1)
             {
                 PosX += 1;
             }
