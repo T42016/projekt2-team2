@@ -24,8 +24,6 @@ namespace MineSweeperLogic
             SizeY = sizeY;
             NumberOfMines = numberOfMines;
             State = state;
-
-            ResetBoard();
         }
 
         public int PosX { get; private set; }
@@ -47,12 +45,12 @@ namespace MineSweeperLogic
 
         public void ClickCoordinate()
         {
-
+            
         }
 
         public void ResetBoard()
         {
-
+            
         }
 
         public void DrawBoard()
