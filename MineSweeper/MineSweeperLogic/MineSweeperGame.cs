@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Common;
 using System.Linq;
 using System.Reflection;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,8 +17,8 @@ namespace MineSweeperLogic
         private int sizeY;
         private int numberOfMines;
         private GameState state;
-        public IServiceBus bus;
-
+        private IServiceBus bus;
+        
         public MineSweeperGame(int sizeX, int sizeY, int numberOfMines, IServiceBus bus)
         {
             PosX = posX;
@@ -27,8 +28,12 @@ namespace MineSweeperLogic
             NumberOfMines = numberOfMines;
             State = state;
             Bus = bus;
+            positions = new PositionInfo[SizeX, SizeY];
+
+            ResetBoard();
         }
 
+        private PositionInfo[,] positions;
         public ConsoleColor DarkCyan { get; set; }
         public int PosX { get; private set; }
         public int PosY { get; private set; }
@@ -55,12 +60,42 @@ namespace MineSweeperLogic
 
         public void ResetBoard()
         {
-            
+           
+
+            for (int y = 0; y < SizeY; y++)
+            {
+                for (int x = 0; x < SizeX; x++)
+                {
+                    positions[x, y] = new PositionInfo();
+                    positions[x, y].IsOpen = false;
+                    positions[x, y].HasMine = false;
+                    positions[x, y].IsFlagged = false;
+                    positions[x, y].NrOfNeighbours = 0;
+                }
+            }
+
+            for (int i = 0; i < NumberOfMines; i++)
+            {
+                Random Ran = new Random();
+
+                int ranX = Ran.Next(0, SizeX);
+                int ranY = Ran.Next(0, SizeY);
+
+                if (positions[ranX, ranY].HasMine == false)
+                {
+                    positions[ranX, ranY].HasMine = true;
+                }
+                else
+                {
+                    i--;
+                }
+            }
+
+
         }
 
         public void DrawBoard()
         {
-            Console.WriteLine();
             for (int i = 0; i < SizeY; i++)
             {
                 
@@ -80,7 +115,6 @@ namespace MineSweeperLogic
                 Console.WriteLine();
                 
             }
-            Bus.Write("! ");
             //Bus.Write("? ", ConsoleColor.DarkCyan);
             //Bus.Write("X ", ConsoleColor.DarkCyan);
             //Bus.Write("! ", ConsoleColor.DarkCyan);
