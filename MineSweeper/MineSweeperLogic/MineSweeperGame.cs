@@ -18,6 +18,8 @@ namespace MineSweeperLogic
         private int numberOfMines;
         private GameState state;
         private IServiceBus bus;
+        private int safe;
+        private int opened;
 
         public MineSweeperGame(int sizeX, int sizeY, int numberOfMines, IServiceBus bus)
         {
@@ -29,8 +31,10 @@ namespace MineSweeperLogic
             State = state;
             Bus = bus;
             positions = new PositionInfo[SizeX, SizeY];
+            Safe = safe;
+            Opened = opened;
 
-
+            Safe = SizeX * SizeY - NumberOfMines;
             ResetBoard();
         }
 
@@ -43,6 +47,8 @@ namespace MineSweeperLogic
         public int NumberOfMines { get; }
         public GameState State { get; private set; }
         public IServiceBus Bus { get; }
+        public int Safe { get; set; }
+        public int Opened { get; set; }
 
         public PositionInfo GetCoordinate(int x, int y)
         {
@@ -63,6 +69,7 @@ namespace MineSweeperLogic
 
         public void ClickCoordinate()
         {
+            
             if (positions[PosX, PosY].IsOpen == false &&
                 positions[PosX, PosY].HasMine == false &&
                 positions[PosX, PosY].IsFlagged == false)
@@ -83,7 +90,10 @@ namespace MineSweeperLogic
                     }
                 }
             }
-            else if (positions[PosX, PosY].IsFlagged == false)
+            else if (positions[PosX, PosY].IsFlagged == true)
+            {
+                return;
+            }
             {
                 positions[PosX, PosY].IsOpen = true;
             }
@@ -91,9 +101,11 @@ namespace MineSweeperLogic
             {
                 positions[PosX, PosY].IsOpen = false;
             }
-
+            if (Opened == Safe)
+            {
+                State = GameState.Won;
+            }
         }
-
         public void ResetBoard()
         {
             State = GameState.Playing;
@@ -291,11 +303,13 @@ namespace MineSweeperLogic
             else if (positions[x, y].NrOfNeighbours > 0)
             {
                 positions[x, y].IsOpen = true;
+                Opened++;
                 return;
             }
             else
             {
                 positions[x, y].IsOpen = true;
+                Opened++;
 
                 FloodFill(x + 1, y);
                 FloodFill(x - 1, y);
