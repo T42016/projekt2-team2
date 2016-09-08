@@ -45,7 +45,7 @@ namespace MineSweeperLogic
 
         public PositionInfo GetCoordinate(int x, int y)
         {
-            return positions[x,y];
+            return positions[x, y];
         }
 
         public void FlagCoordinate()
@@ -62,7 +62,8 @@ namespace MineSweeperLogic
 
         public void ClickCoordinate()
         {
-            
+            positions[PosX, PosY] = new PositionInfo();
+            positions[PosX, PosY].IsOpen = true;
         }
 
         public void ResetBoard()
@@ -80,6 +81,7 @@ namespace MineSweeperLogic
                     positions[x, y].NrOfNeighbours = 0;
                     positions[x, y].X = x;
                     positions[x, y].Y = y;
+
                 }
             }
 
@@ -147,27 +149,34 @@ namespace MineSweeperLogic
 
         public void DrawBoard()
         {
-            for (int y = 0; y < SizeY; y++)
+            positions[PosX, PosY] = new PositionInfo();
             {
                 for (int x = 0; x < SizeX; x++)
                 {
                     if (positions[x,y].IsOpen)
                     {
                         
-                    }
 
+                    }
+                    
                     if (x == PosX && y == PosY)
                     {
                         Bus.Write("? ", ConsoleColor.DarkCyan);
+                    }
+                    else if (positions[PosX, PosY].IsOpen.Equals(true))
+                    {
+                        Bus.Write("! ");
                     }
                     else
                     {
                         Bus.Write("? ");
                     }
+
                 }
                 Console.WriteLine();
                 
             }
+          
 
         }
 
