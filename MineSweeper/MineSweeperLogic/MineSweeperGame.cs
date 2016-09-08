@@ -46,6 +46,7 @@ namespace MineSweeperLogic
         public PositionInfo GetCoordinate(int x, int y)
         {
             return positions[x,y];
+
         }
 
         public void FlagCoordinate()
@@ -71,6 +72,8 @@ namespace MineSweeperLogic
                     positions[x, y].HasMine = false;
                     positions[x, y].IsFlagged = false;
                     positions[x, y].NrOfNeighbours = 0;
+                    positions[x, y].X = x;
+                    positions[x, y].Y = y;
                 }
             }
 
