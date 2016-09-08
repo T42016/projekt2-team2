@@ -18,7 +18,7 @@ namespace MineSweeperLogic
         private int numberOfMines;
         private GameState state;
         private IServiceBus bus;
-        
+
         public MineSweeperGame(int sizeX, int sizeY, int numberOfMines, IServiceBus bus)
         {
             PosX = posX;
@@ -29,7 +29,7 @@ namespace MineSweeperLogic
             State = state;
             Bus = bus;
             positions = new PositionInfo[SizeX, SizeY];
-            
+
 
             ResetBoard();
         }
@@ -51,11 +51,11 @@ namespace MineSweeperLogic
 
         public void FlagCoordinate()
         {
-            if (positions[PosX,PosY].IsOpen == true || positions[PosX,PosY].IsFlagged == true)
+            if (positions[PosX, PosY].IsOpen == true || positions[PosX, PosY].IsFlagged == true)
             {
                 positions[PosX, PosY].IsFlagged = false;
             }
-            else if (positions[PosX,PosY].IsOpen == false)
+            else if (positions[PosX, PosY].IsOpen == false)
             {
                 positions[PosX, PosY].IsFlagged = true;
             }
@@ -90,10 +90,10 @@ namespace MineSweeperLogic
 
             for (int i = 0; i < NumberOfMines; i++)
             {
-                Random Ran = new Random();
+                
 
-                int ranX = Ran.Next(0, SizeX);
-                int ranY = Ran.Next(0, SizeY);
+                int ranX = Bus.Next(SizeX);
+                int ranY = Bus.Next(SizeY);
 
                 if (positions[ranX, ranY].HasMine == false)
                 {
@@ -113,38 +113,38 @@ namespace MineSweeperLogic
                     {
                         if (x + 1 <= SizeX - 1 && y + 1 <= SizeY - 1)
                         {
-                            positions[x + 1, y + 1].NrOfNeighbours +=1;
+                            positions[x + 1, y + 1].NrOfNeighbours += 1;
                         }
                         if (x + 1 <= SizeX - 1 && y - 1 >= 0)
                         {
-                            positions[x + 1, y - 1].NrOfNeighbours +=1;
+                            positions[x + 1, y - 1].NrOfNeighbours += 1;
                         }
                         if (x - 1 >= 0 && y + 1 <= SizeY - 1)
                         {
-                            positions[x - 1, y + 1].NrOfNeighbours +=1;
+                            positions[x - 1, y + 1].NrOfNeighbours += 1;
                         }
                         if (x - 1 >= 0 && y - 1 >= 0)
                         {
-                            positions[x - 1, y - 1].NrOfNeighbours +=1;
+                            positions[x - 1, y - 1].NrOfNeighbours += 1;
                         }
                         if (y + 1 <= SizeY - 1)
                         {
-                            positions[x, y + 1].NrOfNeighbours +=1;
+                            positions[x, y + 1].NrOfNeighbours += 1;
                         }
                         if (y - 1 >= 0)
                         {
-                            positions[x, y - 1].NrOfNeighbours +=1;
+                            positions[x, y - 1].NrOfNeighbours += 1;
                         }
                         if (x + 1 <= SizeX - 1)
                         {
-                            positions[x + 1, y].NrOfNeighbours +=1;
+                            positions[x + 1, y].NrOfNeighbours += 1;
                         }
                         if (x - 1 >= 0)
                         {
-                            positions[x - 1, y].NrOfNeighbours +=1;
+                            positions[x - 1, y].NrOfNeighbours += 1;
                         }
                     }
-                    
+
                 }
             }
 
@@ -182,7 +182,7 @@ namespace MineSweeperLogic
                                 {
                                     Bus.Write(positions[x, y].NrOfNeighbours + " ");
                                 }
-                                else 
+                                else
                                 {
                                     if (x == PosX && y == PosY)
                                     {
@@ -197,7 +197,6 @@ namespace MineSweeperLogic
                         }
                         else if (positions[x, y].IsFlagged)
                         {
-
                             if (x == PosX && y == PosY)
                             {
                                 Bus.Write("! ", ConsoleColor.DarkCyan);
