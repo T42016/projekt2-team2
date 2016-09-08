@@ -65,6 +65,13 @@ namespace MineSweeperLogic
         {
             if (positions[PosX, PosY].IsFlagged == false)
             positions[PosX, PosY].IsOpen = true;
+            if (positions[PosX,PosY].IsOpen == false && positions[PosX,PosY].HasMine == false && positions[PosX, PosY].IsFlagged == false)
+            {
+                if (positions[PosX,PosY].NrOfNeighbours == 1-9)
+                {
+                    
+                }
+            }
         }
 
         public void ResetBoard()
@@ -252,6 +259,39 @@ namespace MineSweeperLogic
             }
         }
 
-        #endregion
-    }
+        private void FloodFill(int x, int y)
+        {
+            //perform bounds checking X
+            if ((x >= SizeX) || (x < 0))
+                return; //outside of bounds
+
+            //perform bounds checking Y
+            if ((y >= SizeY) || (y < 0))
+                return; //ouside of bounds
+
+            //check to see if the node is the target color
+            if (positions[x, y].IsOpen)
+                return; //return and do nothing
+            else
+            {
+                positions[x, y].IsOpen = true;
+
+                //recurse
+                //try to fill one step to the right
+                FloodFill(x + 1, y);
+                //try to fill one step to the left
+                FloodFill(x - 1, y);
+                //try to fill one step to the north
+                FloodFill(x, y - 1);
+                //try to fill one step to the south
+                FloodFill(x, y + 1);
+
+                //exit method
+                return;
+            }
+        }
+            #endregion
+        }
+
 }
+
