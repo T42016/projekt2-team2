@@ -97,7 +97,7 @@ namespace MineSweeperLogic
 
             for (int i = 0; i < NumberOfMines; i++)
             {
-                
+           
 
                 int ranX = Bus.Next(SizeX);
                 int ranY = Bus.Next(SizeY);
@@ -111,7 +111,6 @@ namespace MineSweeperLogic
                     i--;
                 }
             }
-
             for (int y = 0; y < SizeY; y++)
             {
                 for (int x = 0; x < SizeX; x++)
@@ -151,7 +150,6 @@ namespace MineSweeperLogic
                             positions[x - 1, y].NrOfNeighbours += 1;
                         }
                     }
-
                 }
             }
 
@@ -164,7 +162,6 @@ namespace MineSweeperLogic
                 {
                     for (int x = 0; x < SizeX; x++)
                     {
-
                         if (positions[x, y].IsOpen)
                         {
                             if (positions[x, y].HasMine)
@@ -182,7 +179,6 @@ namespace MineSweeperLogic
                             {
                                 if (positions[x, y].NrOfNeighbours > 0 && x == PosX && y == PosY)
                                 {
-
                                     Bus.Write(positions[x, y].NrOfNeighbours + " ", ConsoleColor.DarkCyan);
                                 }
                                 else if (positions[x, y].NrOfNeighbours > 0)
@@ -222,7 +218,7 @@ namespace MineSweeperLogic
                             Bus.Write("? ");
                         }
                     }
-                    Console.WriteLine();
+                    Bus.WriteLine();
                 }
             }
         }
