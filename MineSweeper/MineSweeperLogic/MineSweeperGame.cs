@@ -155,8 +155,56 @@ namespace MineSweeperLogic
                 {
                     if (positions[x,y].IsOpen)
                     {
-                        
-
+                        if (positions[x,y].HasMine)
+                        {
+                            Bus.Write("X ");
+                        }
+                        else
+                        {
+                            if (positions[x, y].NrOfNeighbours > 0)
+                            {
+                                if (positions[x, y].NrOfNeighbours == 1)
+                                {
+                                    Bus.Write("1 ");
+                                }
+                                if (positions[x, y].NrOfNeighbours == 2)
+                                {
+                                    Bus.Write("2 ");
+                                }
+                                if (positions[x, y].NrOfNeighbours == 3)
+                                {
+                                    Bus.Write("3 ");
+                                }
+                                if (positions[x, y].NrOfNeighbours == 4)
+                                {
+                                    Bus.Write("4 ");
+                                }
+                                if (positions[x, y].NrOfNeighbours == 5)
+                                {
+                                    Bus.Write("5 ");
+                                }
+                                if (positions[x, y].NrOfNeighbours == 6)
+                                {
+                                    Bus.Write("6 ");
+                                }
+                                if (positions[x, y].NrOfNeighbours == 7)
+                                {
+                                    Bus.Write("7 ");
+                                }
+                                if (positions[x, y].NrOfNeighbours == 8)
+                                {
+                                    Bus.Write("8 ");
+                                }
+                            }
+                            else
+                            {
+                                Bus.Write(". ");
+                            }
+                        }
+                    }
+                    else if(positions[x,y].IsFlagged)
+                    {
+                        Bus.Write("! ");
                     }
                     
                     if (x == PosX && y == PosY)
