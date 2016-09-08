@@ -29,6 +29,7 @@ namespace MineSweeperLogic
             State = state;
             Bus = bus;
             positions = new PositionInfo[SizeX, SizeY];
+            
 
             ResetBoard();
         }
@@ -62,7 +63,6 @@ namespace MineSweeperLogic
 
         public void ClickCoordinate()
         {
-            positions[PosX, PosY] = new PositionInfo();
             positions[PosX, PosY].IsOpen = true;
         }
 
@@ -149,12 +149,14 @@ namespace MineSweeperLogic
 
         public void DrawBoard()
         {
-            positions[PosX, PosY] = new PositionInfo();
             {
-                for (int x = 0; x < SizeX; x++)
+                for (int y = 0; y < SizeY; y++)
                 {
-                    if (positions[x,y].IsOpen)
-                    {
+                    for (int x = 0; x < SizeX; x++)
+                        {
+                    
+                        if (positions[x, y].IsOpen)
+                        {
                         if (positions[x,y].HasMine)
                         {
                             Bus.Write("X ");
@@ -205,27 +207,36 @@ namespace MineSweeperLogic
                     else if(positions[x,y].IsFlagged)
                     {
                         Bus.Write("! ");
+                        }
+                            if (positions[x, y].HasMine && positions[x, y].IsOpen == true)
+                            {
+                               Bus.Write("X ");
+                            }
+                            else if (positions[x, y].IsOpen.Equals(true))
+                            {
+                                Bus.Write(". ");
+                            }
+
+                        if (x == PosX && y == PosY)
+                        {
+                            Bus.Write("? ", ConsoleColor.DarkCyan);
+                        }
+                        else if (positions[PosX, PosY].IsOpen.Equals(true))
+                        {
+                            Bus.Write("! ");
+                        }
+                        else
+                        {
+                            Bus.Write("? ");
+                        }
+
                     }
-                    
-                    if (x == PosX && y == PosY)
-                    {
-                        Bus.Write("? ", ConsoleColor.DarkCyan);
-                    }
-                    else if (positions[PosX, PosY].IsOpen.Equals(true))
-                    {
-                        Bus.Write("! ");
-                    }
-                    else
-                    {
-                        Bus.Write("? ");
-                    }
+                    Console.WriteLine();
 
                 }
-                Console.WriteLine();
-                
-            }
-          
 
+
+            }
         }
 
         #region MoveCursor Methods
