@@ -83,9 +83,13 @@ namespace MineSweeperLogic
                     }
                 }
             }
-            else
+            else if (positions[PosX, PosY].IsFlagged == false)
             {
                 positions[PosX, PosY].IsOpen = true;
+            }
+            if (positions[PosX, PosY].IsFlagged == true)
+            {
+                positions[PosX, PosY].IsOpen = false;
             }
 
         }
