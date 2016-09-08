@@ -110,6 +110,8 @@ namespace MineSweeperLogic
         {
             State = GameState.Playing;
 
+            Opened = 0;
+
             for (int y = 0; y < SizeY; y++)
             {
                 for (int x = 0; x < SizeX; x++)
