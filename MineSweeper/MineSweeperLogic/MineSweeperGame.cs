@@ -46,12 +46,18 @@ namespace MineSweeperLogic
         public PositionInfo GetCoordinate(int x, int y)
         {
             return positions[x,y];
-
         }
 
         public void FlagCoordinate()
         {
-
+            if (positions[PosX,PosY].IsOpen == true || positions[PosX,PosY].IsFlagged == true)
+            {
+                positions[PosX, PosY].IsFlagged = false;
+            }
+            else if (positions[PosX,PosY].IsOpen == false)
+            {
+                positions[PosX, PosY].IsFlagged = true;
+            }
         }
 
         public void ClickCoordinate()
