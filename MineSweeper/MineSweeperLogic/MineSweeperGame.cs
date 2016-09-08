@@ -63,8 +63,6 @@ namespace MineSweeperLogic
 
         public void ClickCoordinate()
         {
-            if (positions[PosX, PosY].IsFlagged == false)
-            positions[PosX, PosY].IsOpen = true;
             if (positions[PosX,PosY].IsOpen == false && positions[PosX,PosY].HasMine == false && positions[PosX, PosY].IsFlagged == false)
             {
                 FloodFill(PosX, PosY);
