@@ -67,10 +67,7 @@ namespace MineSweeperLogic
             positions[PosX, PosY].IsOpen = true;
             if (positions[PosX,PosY].IsOpen == false && positions[PosX,PosY].HasMine == false && positions[PosX, PosY].IsFlagged == false)
             {
-                if (positions[PosX,PosY].NrOfNeighbours == 1-9)
-                {
-                    
-                }
+                FloodFill(PosX, PosY);
             }
         }
 
