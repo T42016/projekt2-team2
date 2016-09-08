@@ -93,18 +93,64 @@ namespace MineSweeperLogic
                     i--;
                 }
             }
+
+            for (int y = 0; y < SizeY; y++)
+            {
+                for (int x = 0; x < SizeX; x++)
+                {
+                    if (positions[x, y].HasMine)
+                    {
+                        if (x + 1 <= SizeX - 1 && y + 1 <= SizeY - 1)
+                        {
+                            positions[x + 1, y + 1].NrOfNeighbours +=1;
+                        }
+                        if (x + 1 <= SizeX - 1 && y - 1 >= 0)
+                        {
+                            positions[x + 1, y - 1].NrOfNeighbours +=1;
+                        }
+                        if (x - 1 >= 0 && y + 1 <= SizeY - 1)
+                        {
+                            positions[x - 1, y + 1].NrOfNeighbours +=1;
+                        }
+                        if (x - 1 >= 0 && y - 1 >= 0)
+                        {
+                            positions[x - 1, y - 1].NrOfNeighbours +=1;
+                        }
+                        if (y + 1 <= SizeY - 1)
+                        {
+                            positions[x, y + 1].NrOfNeighbours +=1;
+                        }
+                        if (y - 1 >= 0)
+                        {
+                            positions[x, y - 1].NrOfNeighbours +=1;
+                        }
+                        if (x + 1 <= SizeX - 1)
+                        {
+                            positions[x + 1, y].NrOfNeighbours +=1;
+                        }
+                        if (x - 1 >= 0)
+                        {
+                            positions[x - 1, y].NrOfNeighbours +=1;
+                        }
+                    }
+                    
+                }
+            }
+
         }
 
         public void DrawBoard()
         {
-            for (int i = 0; i < SizeY; i++)
+            for (int y = 0; y < SizeY; y++)
             {
-                
-                for (int j = 0; j < SizeX; j++)
+                for (int x = 0; x < SizeX; x++)
                 {
-                    
+                    if (positions[x,y].IsOpen)
+                    {
+                        
+                    }
 
-                    if (j == PosX && i == PosY)
+                    if (x == PosX && y == PosY)
                     {
                         Bus.Write("? ", ConsoleColor.DarkCyan);
                     }
