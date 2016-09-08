@@ -63,6 +63,7 @@ namespace MineSweeperLogic
 
         public void ClickCoordinate()
         {
+            if (positions[PosX, PosY].IsFlagged == false)
             positions[PosX, PosY].IsOpen = true;
         }
 
@@ -153,92 +154,70 @@ namespace MineSweeperLogic
                 for (int y = 0; y < SizeY; y++)
                 {
                     for (int x = 0; x < SizeX; x++)
-                        {
-                    
+                    {
+
                         if (positions[x, y].IsOpen)
                         {
-                        if (positions[x,y].HasMine)
-                        {
-                            Bus.Write("X ");
-                        }
-                        else
-                        {
-                            if (positions[x, y].NrOfNeighbours > 0)
+                            if (positions[x, y].HasMine)
                             {
-                                if (positions[x, y].NrOfNeighbours == 1)
+                                if (x == PosX && y == PosY)
                                 {
-                                    Bus.Write("1 ");
+                                    Bus.Write("X ", ConsoleColor.DarkCyan);
                                 }
-                                if (positions[x, y].NrOfNeighbours == 2)
+                                else
                                 {
-                                    Bus.Write("2 ");
-                                }
-                                if (positions[x, y].NrOfNeighbours == 3)
-                                {
-                                    Bus.Write("3 ");
-                                }
-                                if (positions[x, y].NrOfNeighbours == 4)
-                                {
-                                    Bus.Write("4 ");
-                                }
-                                if (positions[x, y].NrOfNeighbours == 5)
-                                {
-                                    Bus.Write("5 ");
-                                }
-                                if (positions[x, y].NrOfNeighbours == 6)
-                                {
-                                    Bus.Write("6 ");
-                                }
-                                if (positions[x, y].NrOfNeighbours == 7)
-                                {
-                                    Bus.Write("7 ");
-                                }
-                                if (positions[x, y].NrOfNeighbours == 8)
-                                {
-                                    Bus.Write("8 ");
+                                    Bus.Write("X ");
                                 }
                             }
                             else
                             {
-                                Bus.Write(". ");
-                            }
-                        }
-                    }
-                    else if(positions[x,y].IsFlagged)
-                    {
-                        Bus.Write("! ");
-                        }
-                            if (positions[x, y].HasMine && positions[x, y].IsOpen == true)
-                            {
-                               Bus.Write("X ");
-                            }
-                            else if (positions[x, y].IsOpen.Equals(true))
-                            {
-                                Bus.Write(". ");
-                            }
+                                if (positions[x, y].NrOfNeighbours > 0 && x == PosX && y == PosY)
+                                {
 
-                        if (x == PosX && y == PosY)
+                                    Bus.Write(positions[x, y].NrOfNeighbours + " ", ConsoleColor.DarkCyan);
+                                }
+                                else if (positions[x, y].NrOfNeighbours > 0)
+                                {
+                                    Bus.Write(positions[x, y].NrOfNeighbours + " ");
+                                }
+                                else 
+                                {
+                                    if (x == PosX && y == PosY)
+                                    {
+                                        Bus.Write(". ", ConsoleColor.DarkCyan);
+                                    }
+                                    else
+                                    {
+                                        Bus.Write(". ");
+                                    }
+                                }
+                            }
+                        }
+                        else if (positions[x, y].IsFlagged)
+                        {
+
+                            if (x == PosX && y == PosY)
+                            {
+                                Bus.Write("! ", ConsoleColor.DarkCyan);
+                            }
+                            else
+                            {
+                                Bus.Write("! ");
+                            }
+                        }
+                        if (x == PosX && y == PosY && positions[x, y].IsOpen == false && positions[x, y].IsFlagged == false)
                         {
                             Bus.Write("? ", ConsoleColor.DarkCyan);
                         }
-                        else if (positions[PosX, PosY].IsOpen.Equals(true))
-                        {
-                            Bus.Write("! ");
-                        }
-                        else
+                        else if (positions[x, y].IsOpen == false && positions[x, y].IsFlagged == false)
                         {
                             Bus.Write("? ");
                         }
-
                     }
                     Console.WriteLine();
-
                 }
-
-
             }
         }
-
         #region MoveCursor Methods
 
         public void MoveCursorUp()
@@ -274,6 +253,5 @@ namespace MineSweeperLogic
         }
 
         #endregion
-
     }
 }
